@@ -11,7 +11,7 @@
         public function connect(){
             try{
                 $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db",$this->username,$this->password);
-                $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
                 return $this->conn;
             }

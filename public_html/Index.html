@@ -180,7 +180,7 @@
 <body>
   <div id = 'signin'>
       <div class="form-style">
-          <form method="POST">
+          <form method="POST" id="signinSub">
             <fieldset>
               <legend><span class="number">1</span>  Sign In </legend>
               <input type="email" name="field2" placeholder="Your Email *" required>
@@ -200,7 +200,7 @@
             <legend><span class="number">2</span> Additional Info</legend>
             <textarea name="field3" placeholder="Your Interests"></textarea>
             </fieldset> -->
-            <input type="submit" id="signinSub" value="Let's Jump In" />
+            <input type="submit" value="Let's Jump In" />
           </form>
       </div>
   </div>
@@ -208,9 +208,11 @@
   <div id = 'signup'>
         
       <div class="form-style">
-          <form method="POST">
+          <form method="POST" id="signupSub" >
           <fieldset>
             <legend><span class="number">1</span>  Sign Up </legend>
+            <input type="text" name="field4" placeholder="First Name *" required>
+            <input type="text" name="field3" placeholder="Last Name *" required>
             <input type="email" name="field2" placeholder="Your Email *" required>
             <input type="text" name="field1" placeholder="Your Password *" required>
 
@@ -218,7 +220,8 @@
                 <a class="third after gotosignin" href="#!">Already a Member..</a>
             </div>
           </fieldset>
-          <input type="submit" id="signupSub" value="Let's Get Started" />
+          <br><br>
+          <input type="submit" value="Let's Get Started" />
           </form>
       </div>
 
@@ -226,14 +229,14 @@
 
   <div id = 'forgotpassword'>
       <div class="form-style">
-          <form method="POST">
+          <form method="POST" id="forgotSub">
 
           <fieldset>
             <legend><span class="number">1</span>  Forgot Password </legend>
             <input type="email" name="field2" placeholder="Give Your Email *" required>
           </fieldset>
 
-          <input type="submit" id="forgotSub" value="Send Mail" />
+          <input type="submit" value="Send Mail" />
           </form>
           <div class="wrapper">
               <a class="third after gotosignin" href="#!">Go To Sign In</a>
@@ -265,6 +268,38 @@
         $('.gotosignin').click(function(){
           $('#forgotpassword,#signup').hide();
           $('#signin').show();
+        })
+
+        $('#signupSub').submit(function(event){
+          event.preventDefault();
+          $.ajax({
+            type:'POST',
+            cache:'false',
+            // contentType:'Application/json',
+            url:'SignUp.php',
+            data:$('#signupSub').serialize(),
+
+            // dataType:'json',
+            success:function(data){
+              console.log(data);
+              if(data>0)
+                alert('Check your mail and verify your account');
+            },
+
+            error:function(e){
+              alert(12);
+              console.log(e);
+            } 
+          }); 
+        })    
+
+        $('#signinSub').submit(function(event){
+          event.preventDefault();
+
+        })
+
+        $('#forgotSub').submit(function(event){
+          event.preventDefault();
         })
     });
 

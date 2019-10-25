@@ -21,7 +21,7 @@ class Authenticate{
     // protected $lname;
     // protected $email;
     // protected $password;
-    protected $mailer;
+    protected $mail;
     
 
     public function __construct( ){
@@ -30,13 +30,14 @@ class Authenticate{
         // $this->lname = $lname;
         // $this->email = $email;
         // $this->password = $password;
-        $this->mailer = new PHPMailer(true);
+        $this->mail = new PHPMailer(true);
 
     }
 
     
     public function signup($fname, $lname, $email, $password){
         try { 
+            $mail = new PHPMailer(true);
             $mail->SMTPDebug = 2;                                        
             $mail->isSMTP();                                             
             $mail->Host       = 'smtp.gmail.com;';                     
@@ -48,7 +49,7 @@ class Authenticate{
             
             $authservice = new AuthService();
             $info = $authservice->addUser($fname,$lname,$email,$password);
-
+            echo $info;
             $mail->setFrom('ragnar.viking.1998.kia@gmail.com', 'RL');            
             $mail->addAddress($email); 
             
@@ -56,7 +57,7 @@ class Authenticate{
             $mail->Subject = 'Account Verification'; 
 
             
-            $mail->Body    = '<b>Follow the link to activate your account:</b><br><a href="#!">Click Here</a><br><br> ';
+            $mail->Body = '<b>Follow the link to activate your account:</b><br><a href="http://localhost:7777/sofia/public_html/Verify.php?email='.$email.'&token='.$info.'">Click Here</a><br><br> ';
 
             $mail->AltBody = "<h2>Let's create a healthy community together !!!!</h2>"; 
             if( $mail->send() ) 
