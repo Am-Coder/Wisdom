@@ -15,7 +15,6 @@
             $conn = new dbConnection();
             $conn = $conn->connect();        
             if($conn){
-                // echo 1;
                 $psw = md5($password);
                 $token = md5(uniqid($email,true));
                 $stmt = $conn->prepare("INSERT INTO user(firstname,lastname,email,psw,enable,token) VALUES (?,?,?,?,?,?)");
@@ -74,10 +73,13 @@
             $conn = new dbConnection();
             $conn = $conn->connect();            
             if( $conn ){
-                $stmt = $conn->prepare("UPDATE user SET enable=1 and token='' WHERE email=? AND token=?");
+                $stmt = $conn->prepare("UPDATE user SET enable=1 WHERE email=? AND token=?");
                 $stmt->execute([$email,$oritoken]);
-                if( $stmt->rowCount()>0 )
+                if( $stmt->rowCount()>0 ){
+                    $stmt = $conn->prepare("UPDATE user SET token='' WHERE email=?");
+                    $stmt->execute([$email]);
                    return true; 
+                }
                 return false;
             }
 
