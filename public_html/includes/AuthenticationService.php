@@ -54,19 +54,19 @@
             }
         }
 
-        public function findAndCheckTokenByEmail($oritoken,$email){
+        public function resetPasswordByEmail($psw,$oritoken,$email){
             $conn = new dbConnection();
             $conn = $conn->connect();
             if($conn){
-                $stmt = $conn->prepare("SELECT token FROM user WHERE email=?");
-                $stmt.execute([$email]);
-                $token = $stmt->fetch();
-                if( $token == $oritoken ){
-                    return true;
-                }else{
-                    return false;
+                $stmt = $conn->prepare("UPDATE user SET psw=? WHERE email=? AND token=?");
+                $stmt.execute([$psw,$email,$token]);
+                if( $stmt->rowCount()>0 ){
+                   return true; 
                 }
-            }else return false;            
+                return false;
+            } 
+            
+            return false;            
         }
 
         public function verifyAccount($oritoken,$email){
