@@ -33,7 +33,7 @@
             if($conn){
                 $psw = md5($password);
                 $stmt = $con->prepare("SELECT * FROM user WHERE email=? AND psw=? AND enable=1 ");
-                $stmt.execute([$email,$password]);
+                $stmt->execute([$email,$password]);
                 $user = $stmt->fetch();
                 if( $stmt->rowCount()>0 )
                     return $stmt->fetch();
@@ -49,19 +49,26 @@
             if($conn){
                 $token = md5(uniqid($email,true));
                 $stmt = $conn->prepare("UPDATE user SET token=? WHERE email=? AND enable=1");
-                if($stmt.execute([$token,$email]))
-                    return token;
+                $stmt->execute([$token,$email]);
+                if($stmt->rowCount()>0)
+                    return $token;
+                else
+                    return false;
             }
+            return false;
         }
 
         public function resetPasswordByEmail($psw,$oritoken,$email){
             $conn = new dbConnection();
             $conn = $conn->connect();
             if($conn){
+                $psw = md5($psw);
                 $stmt = $conn->prepare("UPDATE user SET psw=? WHERE email=? AND token=?");
-                $stmt.execute([$psw,$email,$token]);
+                $stmt->execute([$psw,$email,$oritoken]);
                 if( $stmt->rowCount()>0 ){
-                   return true; 
+                    $stmt = $conn->prepare("UPDATE user SET token=NULL WHERE email=?");
+                    $stmt->execute([$email]);
+                    return true; 
                 }
                 return false;
             } 
@@ -76,7 +83,7 @@
                 $stmt = $conn->prepare("UPDATE user SET enable=1 WHERE email=? AND token=?");
                 $stmt->execute([$email,$oritoken]);
                 if( $stmt->rowCount()>0 ){
-                    $stmt = $conn->prepare("UPDATE user SET token='' WHERE email=?");
+                    $stmt = $conn->prepare("UPDATE user SET token=NULL WHERE email=?");
                     $stmt->execute([$email]);
                    return true; 
                 }

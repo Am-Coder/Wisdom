@@ -18,8 +18,8 @@
             <form method="POST" action='Forgot.php' >
             <fieldset>
                 <legend><span class="number">1</span> Reset Password </legend>
-                <input type='email' name='field3' value="<?php echo isset($_GET['email']):$_GET['email']:''; ?>" hidden>
-                <input type='text' name='field2' value="<?php echo isset($_GET['token']):$_GET['token']:''; ?>" hidden>
+                <input type='hidden' name='field3' value="<?php echo isset($_GET['email'])?$_GET['email']:''; ?>" >
+                <input type='hidden' name='field2' value="<?php echo isset($_GET['token'])?$_GET['token']:''; ?>" >
                 <input type="password" name='field1' placeholder="New Passoword" required>
             </fieldset>
                 <br><br>

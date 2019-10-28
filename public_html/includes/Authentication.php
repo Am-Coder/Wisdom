@@ -80,9 +80,10 @@ class Authenticate{
     
     public function forgotPassword($email){
         $authservice = new AuthService();
-        $info = $authservice.forgotPsw($email);
+        $info = $authservice->forgotPsw($email);
         if( $info ){
             try { 
+                $mail = new PHPMailer(true);
                 $mail->SMTPDebug = 2;                                        
                 $mail->isSMTP();                                             
                 $mail->Host       = 'smtp.gmail.com;';                     
@@ -100,7 +101,7 @@ class Authenticate{
                 $mail->Subject = 'Forgot Password'; 
     
                 
-                $mail->Body    = '<b>Follow the link to reset your password:</b><br><a href="http://localhost:7777/sofia/public_html/ForgotPsw.phtml?email='.$email.'&token='.$info.'">Click Here</a><br><br> ';
+                $mail->Body    = '<b>Follow the link to reset your password:</b><br><a href="http://localhost:7777/sofia/public_html/ForgotPsw.php?email='.$email.'&token='.$info.'">Click Here</a><br><br> ';
     
                 $mail->AltBody = "<h2>Let's create a healthy community together !!!!</h2>"; 
                 if( $mail->send() ) 
@@ -111,7 +112,7 @@ class Authenticate{
             } 
 
         }
-
+        return false;
 
     }
 }
