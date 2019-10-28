@@ -34,7 +34,7 @@
                 $psw = md5($password);
                 $stmt = $con->prepare("SELECT * FROM user WHERE email=? AND psw=? AND enable=1 ");
                 $stmt->execute([$email,$password]);
-                $user = $stmt->fetch();
+                // $user = $stmt->fetch();
                 if( $stmt->rowCount()>0 )
                     return $stmt->fetch();
                 else
