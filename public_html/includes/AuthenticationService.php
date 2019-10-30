@@ -32,8 +32,8 @@
             $conn = $conn->connect(); 
             if($conn){
                 $psw = md5($password);
-                $stmt = $con->prepare("SELECT * FROM user WHERE email=? AND psw=? AND enable=1 ");
-                $stmt->execute([$email,$password]);
+                $stmt = $conn->prepare("SELECT * FROM user WHERE email=? AND psw=? AND enable=1 ");
+                $stmt->execute([$email,$psw]);
                 // $user = $stmt->fetch();
                 if( $stmt->rowCount()>0 )
                     return $stmt->fetch();

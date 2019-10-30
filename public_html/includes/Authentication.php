@@ -1,7 +1,7 @@
 
 
-<!-- The authentication object -->
 <?php 
+// <!-- The authentication object -->
 
 //Php mailer class added
 require 'phpmailer/src/Exception.php';
@@ -70,10 +70,10 @@ class Authenticate{
     }
 
     public function signin($email,$password){
-        $authservice = new $AuthService();
+        $authservice = new AuthService();
         $user = $authservice->findUser($email,$password);
         if( $user ){
-            return true;
+            return $user;
         }
         return false;
     }

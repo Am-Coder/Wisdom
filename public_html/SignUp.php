@@ -1,5 +1,6 @@
 <?php
     require 'includes/Authentication.php';
+    require 'includes/Session.php';
 
     $auth = new Authenticate();
     // echo $_POST['signupSubBut'];
@@ -12,6 +13,23 @@
         if($auth->signup($fname,$lname,$email,$psw))
             echo 1;
         else echo -1;
+    }else if( !empty($_POST['field2']) ){
+        $email = $_POST['field2'];
+        $psw = $_POST['field1'];
+        $user = $auth->signin($email,$psw);
+        if($user){
+            Session::start();
+            Session::set('username',$user['firstname']);
+            Session::set('email',$user['email']);
+            // header("Location: mainsite/index.php");
+            echo 1;
+        }
+        else{
+            Session::destroy(); 
+            // print "<script> alert('Username or Password incorrect')</script>";
+            // header("Location: index.html");
+            echo -1;
+        }
     }else if( !empty($_POST['field1']) ){
         $email = $_POST['field1'];
         
@@ -19,5 +37,4 @@
             echo 1;
         else echo -1;
     }
-
 ?>
