@@ -25,6 +25,10 @@ $(document).ready(function(){
 		fetchInfo(0, 'all');
 	})
 
+	$('#myBlog').click(function(event){
+		event.preventDefault();
+		fetchInfo(0, 'me');
+	})
 })
 
 function fetchInfo( page, type='all' ){

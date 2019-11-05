@@ -19,10 +19,11 @@
         $user = $auth->signin($email,$psw);
         if($user){
             Session::start();
-            Session::set('username',$user['firstname']);
+            Session::set('firstname',$user['firstname']);
+            Session::set('lastname',$user['lastname']);
             Session::set('email',$user['email']);
             // header("Location: mainsite/index.php");
-            echo 1;
+            echo Session::display();
         }
         else{
             Session::destroy(); 
