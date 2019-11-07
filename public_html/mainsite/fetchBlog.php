@@ -1,7 +1,7 @@
 <?php
 
     require '../includes/Blog.php';
-    require '../includes/Session.php';
+    require_once '../includes/Session.php';
 
     $bloger = new Blog();
     $page = (int)$_GET['page'];

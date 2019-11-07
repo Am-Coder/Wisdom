@@ -1,6 +1,6 @@
 <?php
-    require 'db_conn.php';
-
+    require_once 'db_conn.php';
+    require_once 'Session.php';
     class Blog{
         
         private $conn;
@@ -47,5 +47,42 @@
             return false;
         }
 
+
+        public function fetchTotalBlogsByEmail($email){
+            if($this->conn){
+                $stmt = $this->conn->prepare("SELECT count(blogid) as tb FROM blog ");
+                $stmt->execute([$email]);
+                $res = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $res['tb'];
+            }
+
+            return false;
+        }
+
+        public function fetchLikesByEmail($email){
+            if($this->conn){
+                $stmt = $this->conn->prepare("SELECT sum(claps) as tc  FROM blog WHERE email=?");
+                $stmt->execute([$email]);
+                $res = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $res['tc'];
+            }
+
+            return false;
+        }
+
+        public function renameByEmail($email,$fname,$lname){
+            if($this->conn){
+                $stmt = $this->conn->prepare("UPDATE user SET firstname=?,lastname=? WHERE email=?");
+                $stmt->execute([$fname,$lname,$email]);
+                if($stmt->rowCount()>0){
+                    Session::start();
+                    Session::set('firstname',$fname);
+                    Session::set('lastname',$lname);
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
     }
 ?>
