@@ -84,5 +84,28 @@
             }
             return false;
         }
+
+        public function addBlog($title,$url,$info,$genre,$email){
+            if($this->conn){
+                $stmt = $this->conn->prepare("INSERT INTO blog(title,email,imagetoshow,blogtext,claps,timetoread,datepublished,genre) VALUES(:title,:email,:img,:info,:claps,:tread,:dat,:genre)");
+                $stmt->execute([
+                    'title'=>$title,
+                    'email'=>$email,
+                    'img'=> $url,
+                    'info'=> $info,
+                    'claps'=> 0,
+                    'tread'=>3,
+                    'dat'=>date("Y-m-d"),
+                    'genre'=>$genre
+                    ]);
+
+                if($stmt->rowCount()>0){
+
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
     }
 ?>

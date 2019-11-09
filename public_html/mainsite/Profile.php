@@ -132,6 +132,7 @@
                     $('#fname').attr('contentEditable', true);
                     $('#lname').attr('contentEditable', true);
                     $('.buttonPsw').html('Done');
+                    $('#fname').focus();
                 }else if($('.buttonPsw').text() == 'Done'){
                     alert('Done');
                     $('#fname').attr('contentEditable', false);
