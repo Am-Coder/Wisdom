@@ -1,9 +1,11 @@
 $(document).ready(function(){
+
+    $('.loader').hide();
+
     $('.uploadBlog').click(function(){
         var title = $('.blog-title').val();
         var url = $('.blog-image').val();
         var genre = $('.blog-genre').val();
-
         if( title == ""  ){
             $('.blog-title').css('border-color','red');
             $('.blog-image').css('border-color','green');
@@ -24,7 +26,9 @@ $(document).ready(function(){
             var content = $("#contentarea").contents().find("body").html();
 
             console.log(content);
+
             if(content){
+                $('.loader').show();
 
                 $.ajax({
                     type : "POST",
@@ -36,7 +40,7 @@ $(document).ready(function(){
                     dataType : "json",//result expected from server
                                     //with json return type we can return java objects
                                     //With text we can return String from java conroller
-                    timeout : 100000,
+                    timeout : 10000,
                     success : function(upload) {
 
                         console.log(upload);
@@ -51,11 +55,14 @@ $(document).ready(function(){
                     },
                     complete : function(e) {
                         $('#myModalPublish').modal('hide');
+                        $('.loader').hide();
                         window.location.assign("http://localhost:7777/sofia/public_html/mainsite/index.html");
 
                     }
                 });
 
+            }else{
+                alert("No Content to upload");
             }
         }
     })

@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	
+	$(".loader").hide();
+	
 	fetchInfo(0);
 	$('#scifiBlogs').click(function(event){
 		event.preventDefault();
@@ -32,6 +35,8 @@ $(document).ready(function(){
 })
 
 function fetchInfo( page, type='all' ){
+
+		$('.loader').show();
     $.ajax({
 		type : "GET",
 		cache: false,
@@ -42,7 +47,7 @@ function fetchInfo( page, type='all' ){
 		dataType : "json",//result expected from server
 						//with json return type we can return java objects
 						//With text we can return String from java conroller
-		timeout : 100000,
+		timeout : 10000,
 		success : function(blogList) {
             
       console.log("V-V");
@@ -55,7 +60,7 @@ function fetchInfo( page, type='all' ){
 				blog_container.removeChild(blog_container.children[0]);
 			}			
 
-			if(blogList.length != 0){
+			if(blogList.length != 0 && blogList ){
 
 				
 				for(i=0; i<blogList.length; i++){
@@ -64,9 +69,9 @@ function fetchInfo( page, type='all' ){
 						
 						var container = document.createElement("li");
 						container.setAttribute("class","one_third first");
+						container.style.cssFloat="inline-end";
 						
-						
-						var blogTemplate='<article class="excerpt"><a href="#"><img class="inspace-10 borderedbox" src='+blog.imagetoshow+' alt=""></a>'+
+						var blogTemplate='<article class="excerpt"><a href="#"><img class="inspace-10 borderedbox" src='+blog.imagetoshow+' alt="" style="width:250px; height:280px"></a>'+
                           '<div class="excerpttxt">'+
                             '<ul>'+
                               '<li><i class="fa fa-calendar-o"></i>'+ blog.datepublished +'</li>'+
@@ -83,14 +88,23 @@ function fetchInfo( page, type='all' ){
 
 				}
 		
+			}else{
+				var container = document.createElement("div");
+				container.innerHTML = "<h1 style='color:red'> Sorry, could not find any blog </h1>";
+				blog_container.append(container);
+
 			}
 
 		},
 		error : function(e) {
 			console.log("ERROR: ", e);
+			var container = document.createElement("div");
+			$(".loader").hide();
+			container.innerHTML = "<h1 style='color:red'> Could not fetch blogs, Some error occured </h1>";
+			blog_container.append(container);
 		},
 		complete : function(e) {
-			
+			$(".loader").hide();
 		}
 	});
 }
