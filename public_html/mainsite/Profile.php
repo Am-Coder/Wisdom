@@ -14,6 +14,7 @@
     <title>Me</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="../js/layout/scripts/jquery.min.js"></script>
+    <link href="../css/layout/styles/loader.css" rel="stylesheet" type="text/css" media="all">
 
     <style>
 
@@ -86,9 +87,12 @@
 
     
     <div class="ProfileData">
+
             <div class='ProfilePic'>
                     <img src="../img/images/defaultProfile.png">
-                </div >     
+            </div >
+            <div class="loader"></div>
+     
         <div id='name'>
             <span style='font-weight:bold; font-size:30px'>
                 <span id='fname'><?php echo Session::get('firstname')." "?></span> 
@@ -123,18 +127,20 @@
 </div>
     <script>
         $(document).ready(function(){
+            $('.loader').hide();
+
             $('.buttonPsw').click(function(){
                 // alert($('.buttonPsw').text());
                 // $('.buttonPsw').html('Done');
 
                 if($('.buttonPsw').text() == 'Rename'){
-                    alert('hi');
+                    // alert('hi');
                     $('#fname').attr('contentEditable', true);
                     $('#lname').attr('contentEditable', true);
                     $('.buttonPsw').html('Done');
                     $('#fname').focus();
                 }else if($('.buttonPsw').text() == 'Done'){
-                    alert('Done');
+                    $('.loader').show();
                     $('#fname').attr('contentEditable', false);
                     $('#lname').attr('contentEditable', false);
                     $('.buttonPsw').html('Rename');
@@ -161,7 +167,8 @@
                             console.log("ERROR: ", e);
                         },
                         complete : function(e) {
-                            
+                            $('.loader').hide();
+ 
                         }
                     });
                 }else{
