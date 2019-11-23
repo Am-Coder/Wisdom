@@ -40,12 +40,19 @@ $(document).ready(function(){
                     success : function(upload) {
 
                         console.log(upload);
+                        if( upload == -1 ){
+                            alert("Session Expired. Retry after logging in again");
+                        }else
+                            alert("Your blog is online");
                     },
                     error : function(e) {
+                        alert('Some Problem Occured while uploading. Please try again after some time.')
                         console.log("ERROR: ", e);
                     },
                     complete : function(e) {
-                        
+                        $('#myModalPublish').modal('hide');
+                        window.location.assign("http://localhost:7777/sofia/public_html/mainsite/index.html");
+
                     }
                 });
 

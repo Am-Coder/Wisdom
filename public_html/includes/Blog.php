@@ -36,6 +36,18 @@
             return false;
         }   
 
+        public function fetchById($page,$id){
+            if($this->conn){
+                $stmt = $this->conn->prepare("SELECT * FROM blog_view WHERE id=? ");
+                $stmt->execute([$id]);
+                $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $res;
+            }
+
+            return false;
+        }
+
+
         public function fetchByEmail($email){
             if($this->conn){
                 $stmt = $this->conn->prepare("SELECT blogid,email,title,imagetoshow,claps,datepublished,genre FROM blog WHERE email=? ORDER BY claps ");

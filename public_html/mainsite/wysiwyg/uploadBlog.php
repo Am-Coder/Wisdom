@@ -10,9 +10,9 @@
         // $data = json_decode($_POST['name']);
         // print_r($data);
         echo json_encode(array('data'=>$_POST['info']));
-        $bloger.addBlog($_POST['title'],$_POST['url'],$_POST['info'],$_POST['genre'],Session::get('email'));
+        $bloger->addBlog($_POST['title'],$_POST['url'],$_POST['info'],$_POST['genre'],Session::get('email'));
         exit;
     }
     // echo (array(['YES'=>"NO"]));
-    echo 2;
+    echo -1;
 ?>
