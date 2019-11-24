@@ -32,6 +32,8 @@ $(document).ready(function(){
 		event.preventDefault();
 		fetchInfo(0, 'me');
 	})
+
+	
 })
 
 function fetchInfo( page, type='all' ){
@@ -70,15 +72,15 @@ function fetchInfo( page, type='all' ){
 						var container = document.createElement("li");
 						container.setAttribute("class","one_third first");
 						container.style.cssFloat="inline-end";
-						
-						var blogTemplate='<article class="excerpt"><a href="#"><img class="inspace-10 borderedbox" src='+blog.imagetoshow+' alt="" style="width:250px; height:280px"></a>'+
+						container.style.margin="10px";
+						var blogTemplate='<article class="excerpt"><img class="inspace-10 borderedbox" src='+blog.imagetoshow+' alt="" style="width:250px; height:280px"></a>'+
                           '<div class="excerpttxt">'+
                             '<ul>'+
                               '<li><i class="fa fa-calendar-o"></i>'+ blog.datepublished +'</li>'+
                               '<li><i class="fa fa-thumbs-o-up"></i> <a href="#">'+blog.claps+'</a></li>'+
                             '</ul>'+
                             '<h6 class="heading font-x1">'+blog.title+'&hellip;</h6>'+
-                            '<p><a class="btn" href="#" id='+blog.blogid+'>Read More</a></p>'+
+                            '<p><a class="btn btnBlog" href="pages/Display.html?blogId='+ blog.blogid+'" id='+blog.blogid+'>Read More</a></p>'+
                           '</div>'+
                         '</article>';
                       

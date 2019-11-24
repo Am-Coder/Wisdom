@@ -16,7 +16,7 @@
                 // $stmt->execute([2*(int)$page]);
 
                
-                $stmt = $this->conn->prepare("SELECT blogid,email,title,imagetoshow,claps,datepublished,genre FROM blog ORDER BY claps ");
+                $stmt = $this->conn->prepare("SELECT blogid,email,title,imagetoshow,claps,datepublished,genre FROM blog ORDER BY claps desc");
                 $stmt->execute();
                 $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $res;
@@ -27,7 +27,7 @@
 
         public function fetchByGenre($page,$genre){
             if($this->conn){
-                $stmt = $this->conn->prepare("SELECT blogid,email,title,imagetoshow,claps,datepublished,genre FROM blog WHERE genre=? ORDER BY claps ");
+                $stmt = $this->conn->prepare("SELECT blogid,email,title,imagetoshow,claps,datepublished,genre FROM blog WHERE genre=? ORDER BY claps desc");
                 $stmt->execute([$genre]);
                 $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $res;
@@ -50,7 +50,7 @@
 
         public function fetchByEmail($email){
             if($this->conn){
-                $stmt = $this->conn->prepare("SELECT blogid,email,title,imagetoshow,claps,datepublished,genre FROM blog WHERE email=? ORDER BY claps ");
+                $stmt = $this->conn->prepare("SELECT blogid,email,title,imagetoshow,claps,datepublished,genre FROM blog WHERE email=? ORDER BY claps desc ");
                 $stmt->execute([$email]);
                 $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $res;
