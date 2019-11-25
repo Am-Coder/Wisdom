@@ -3,7 +3,7 @@
     require '../../includes/Blog.php';
     require_once '../../includes/Session.php';
 
-    Session::start();
+    // Session::start();
     $bloger = new Blog();
     Session::start();
     if(isset($_POST['info']) && Session::get('email')){

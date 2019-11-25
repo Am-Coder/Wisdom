@@ -36,9 +36,9 @@
             return false;
         }   
 
-        public function fetchById($page,$id){
+        public function fetchById($id){
             if($this->conn){
-                $stmt = $this->conn->prepare("SELECT * FROM blog_view WHERE id=? ");
+                $stmt = $this->conn->prepare("SELECT * FROM blog_view WHERE blogid=? ");
                 $stmt->execute([$id]);
                 $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $res;
@@ -47,6 +47,16 @@
             return false;
         }
 
+        public function fetchCommentsById($id){
+            if($this->conn){
+                $stmt = $this->conn->prepare("SELECT * FROM comment WHERE blogid=? order by date_time desc ");
+                $stmt->execute([$id]);
+                $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $res;
+            }
+
+            return false;
+        }
 
         public function fetchByEmail($email){
             if($this->conn){
@@ -90,6 +100,24 @@
                     Session::start();
                     Session::set('firstname',$fname);
                     Session::set('lastname',$lname);
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        public function addCommentById($id,$email,$content){
+            if($this->conn){
+                $stmt = $this->conn->prepare("INSERT INTO comment(email,content,blogid) VALUES(:email,:content,:id)");
+                $stmt->execute([
+                    'email'=>$email,
+                    'content'=> $content,
+                    'id'=> $id,
+                    ]);
+
+                if($stmt->rowCount()>0){
+
                     return true;
                 }
                 return false;

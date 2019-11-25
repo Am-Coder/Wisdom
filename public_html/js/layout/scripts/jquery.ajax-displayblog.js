@@ -12,8 +12,7 @@ $(document).ready(function(){
 		type : "GET",
 		cache: false,
 		// contentType : "application/json",//type of data being send to server
-		url : "displayBlog.php?id="+id,
-		// data : JSON.stringify({email: $("#email").val()}),
+		url : "DisplayBlog.php?blogid="+id,
 		
 		dataType : "json",//result expected from server
 						//with json return type we can return java objects
@@ -21,10 +20,9 @@ $(document).ready(function(){
 		timeout : 10000,
 		success : function(blogList) {
             
-      console.log("V-V");
+      console.log("Content");
 			console.log(blogList);
 
-			var blog_container = document.getElementsByClassName('nospace group')[1];
 			console.log(blog_container.childElementCount)
 			var len = blog_container.childElementCount;
 			for(i=0; i<len; i++){
@@ -33,29 +31,12 @@ $(document).ready(function(){
 
 			if(blogList.length != 0 && blogList ){
 
-				
 				for(i=0; i<blogList.length; i++){
-					
-						var blog = blogList[i];
-						
-						var container = document.createElement("li");
-						container.setAttribute("class","one_third first");
-						container.style.cssFloat="inline-end";
-						container.style.margin="10px";
-						var blogTemplate='<article class="excerpt"><img class="inspace-10 borderedbox" src='+blog.imagetoshow+' alt="" style="width:250px; height:280px"></a>'+
-                          '<div class="excerpttxt">'+
-                            '<ul>'+
-                              '<li><i class="fa fa-calendar-o"></i>'+ blog.datepublished +'</li>'+
-                              '<li><i class="fa fa-thumbs-o-up"></i> <a href="#">'+blog.claps+'</a></li>'+
-                            '</ul>'+
-                            '<h6 class="heading font-x1">'+blog.title+'&hellip;</h6>'+
-                            '<p><a class="btn btnBlog" href="pages/Display.html?blogId='+ blog.blogid+'" id='+blog.blogid+'>Read More</a></p>'+
-                          '</div>'+
-                        '</article>';
-                      
-                    container.innerHTML= blogTemplate;
-                    blog_container.append(container);
-					// blog_container.insertBefore(container,blog_container.childNodes[0]);
+
+            var blog = blogList[i];
+            console.log(blog);
+
+            blog_container.innerHTML = blog.BLOGTEXT
 
 				}
 		
@@ -71,7 +52,7 @@ $(document).ready(function(){
 			console.log("ERROR: ", e);
 			var container = document.createElement("div");
 			$(".loader").hide();
-			container.innerHTML = "<h1 style='color:red'> Could not fetch blogs, Some error occured </h1>";
+			container.innerHTML = "<h1 style='color:red'> Could not fetch Content, Some error occured </h1>";
 			blog_container.append(container);
 		},
 		complete : function(e) {
@@ -79,8 +60,119 @@ $(document).ready(function(){
 		}
 	});
  
+
+  getBlogComments(id);
+
+
+  $('#submitComment').on('submit',function(e){
+    e.preventDefault();
+    var content = $.trim($('#comment').val());
+    if(content == "")
+      alert('Nothing to comment');
+    else
+      addComment(content,id)
+  })
 })
 
+
+function getBlogComments(id){
+  var com_container = document.getElementById('commentsList');
+
+  $('.loaderComments').show();
+  $.ajax({
+      type : "GET",
+      cache: false,
+      // contentType : "application/json",//type of data being send to server
+      url : "DisplayBlog.php?blogid="+id+"&com=1",
+      
+      dataType : "json",//result expected from server
+              //with json return type we can return java objects
+              //With text we can return String from java conroller
+      timeout : 10000,
+      success : function(comList) {
+              
+        console.log("Comment List");
+        console.log(comList);
+
+        console.log(com_container.childElementCount)
+        var len = com_container.childElementCount;
+        for(i=0; i<len; i++){
+          com_container.removeChild(com_container.children[0]);
+        }			
+
+        if(comList.length != 0 && comList ){
+
+          for(i=0; i<comList.length; i++){
+
+              var comment = comList[i];
+              console.log(comment);
+
+              var container = document.createElement("li");
+              // container.setAttribute("class","one_third first");
+              // container.style.cssFloat="inline-end";
+              container.style.margin="10px";
+             
+              var comTemplate= '<article>'+
+                '<header>'+
+                  '<figure class="avatar"><img src="../../img/images/demo/avatar.png" alt=""></figure>'+
+                  '<address>'+
+                  'By <a href="#">'+comment.email+'</a>'+
+                  '</address>'+
+                  '<time>' + comment.date_time +'</time>'+
+                '</header>'+
+                '<div class="comcont">'+
+                  '<p>' + comment.content +'</p>'+
+                '</div>'+
+              '</article>';
+          
+                        
+                container.innerHTML= comTemplate;
+                com_container.append(container);
+                // com_container.insertBefore(container,com_container.childNodes[0]);
+
+          }
+      
+        }
+
+      },
+      error : function(e) {
+        console.log("ERROR: ", e);
+        var container = document.createElement("div");
+        $(".loaderComments").hide();
+        container.innerHTML = "<li style='color:red'> Unable to fetch comments, Some error occured </li>";
+        com_container.append(container);
+      },
+      complete : function(e) {
+        $(".loaderComments").hide();
+      }
+  });  
+}
+
+function addComment(content,id){
+      $.ajax({
+        type : "POST",
+        cache: false,
+        // contentType : "application/json",//type of data being send to server
+        url : "DisplayBlog.php",
+        data : {content: content, blogid: id},
+        
+        // dataType : "json",//result expected from server
+                        //with json return type we can return java objects
+                        //With text we can return String from java conroller
+        timeout : 10000,
+        success : function() {
+            console.log("Upload done");
+        },
+        error : function(e) {
+            alert('Some Problem Occured while uploading. Please try again after some time.')
+            console.log("ERROR: ", e);
+        },
+        complete : function(e) {
+          getBlogComments(id);
+        }
+    });
+
+}
 function getAllUrlParams(url) {
 
     // get query string from url (optional) or window
