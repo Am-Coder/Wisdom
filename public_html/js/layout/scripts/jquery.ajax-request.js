@@ -55,7 +55,7 @@ function fetchInfo( page, type='all' ){
       console.log("V-V");
 			console.log(blogList);
 
-			var blog_container = document.getElementsByClassName('nospace group')[1];
+			var blog_container = document.getElementsByClassName('nospace group')[0];
 			console.log(blog_container.childElementCount)
 			var len = blog_container.childElementCount;
 			for(i=0; i<len; i++){

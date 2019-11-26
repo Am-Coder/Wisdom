@@ -17,11 +17,10 @@
         // echo json_encode(array('data'=>$_GET['blogid']));
         $val = $_POST['like'];
         if($val>0)
-            $res = $bloger->togLike($_POST['blogid'],Session::get('email'),1);
+            $res = $bloger->incLike($_POST['blogid'],Session::get('email'));
         else 
-            $res = $bloger->togLike($_POST['blogid'],Session::get('email'),-1);
-            
-            $res = array("claps"=>$res);
+            $res = $bloger->decLike($_POST['blogid'],Session::get('email'));
+
             $res = json_encode($res);
 
         echo $res;

@@ -148,14 +148,31 @@
             return false;
         }
 
-        public function togLike($id,$email,$tog){
+        public function incLike($id,$email){
             if($this->conn){
+                $stmt = $this->conn->prepare("UPDATE blog SET claps=claps+1 WHERE blogid=?");
+                $stmt->execute([$id]);
+
                 $stmt = $this->conn->prepare("SELECT claps FROM blog WHERE blogid=?");
                 $stmt->execute([$id]);
                 $res = $stmt->fetch(PDO::FETCH_ASSOC);
-                $res = (int)$res+$tog;
-                $stmt = $this->conn->prepare("UPDATE blog SET claps=? WHERE blogid=?");
-                $stmt->execute([$res,$id]);
+                
+
+                return $res;
+            }
+            return -1;
+        }
+
+        public function decLike($id,$email){
+            if($this->conn){
+                $stmt = $this->conn->prepare("UPDATE blog SET claps=claps-1 WHERE blogid=? and claps>0");
+                $stmt->execute([$id]);
+
+                $stmt = $this->conn->prepare("SELECT claps FROM blog WHERE blogid=?");
+                $stmt->execute([$id]);
+                $res = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+
                 return $res;
             }
             return -1;
