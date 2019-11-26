@@ -7,91 +7,42 @@
 <link href="../../css/layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <link href="../../css/layout/styles/loader.css" rel="stylesheet" type="text/css" media="all">
 
+<!-- for like button -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
 </head>
 <body id="top">
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- <div class="wrapper row0"> -->
-  <!-- <div id="topbar" class="hoc clear">  -->
-    <!-- ################################################################################################ -->
-    <!-- <div class="fl_left">
-      <ul class="nospace">
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
-      </ul>
-    </div>
-    <div class="fl_right">
-      <ul class="nospace">
-        <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Login</a></li>
-        <li><a href="#">Register</a></li>
-      </ul>
-    </div> -->
-    <!-- ################################################################################################ -->
-  <!-- </div> -->
-<!-- </div> -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper row1">
   <header id="header" class="hoc clear"> 
-    <!-- ################################################################################################ -->
     <div id="logo" class="fl_left">
       <h1><a href="../index.html">WISDOM</a></h1>
     </div>
     <nav id="mainav" class="fl_right">
       <ul class="clear">
         <li><a href="../index.html">Home</a></li>
-        <!-- <li class="active"><a class="drop" href="#">Pages</a>
-          <ul>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li class="active"><a href="full-width.html">Full Width</a></li>
-            <li><a href="sidebar-left.html">Sidebar Left</a></li>
-            <li><a href="sidebar-right.html">Sidebar Right</a></li>
-            <li><a href="basic-grid.html">Basic Grid</a></li>
-          </ul>
-        </li>
-        <li><a class="drop" href="#">Dropdown</a>
-          <ul>
-            <li><a href="#">Level 2</a></li>
-            <li><a class="drop" href="#">Level 2 + Drop</a>
-              <ul>
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Level 2</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Link Text</a></li>
-        <li><a href="#">Link Text</a></li> -->
+  
       </ul>
     </nav>
-    <!-- ################################################################################################ -->
   </header>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 
-
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper row3">
   <main class="hoc container clear"> 
     <!-- main body -->
-    <!-- ################################################################################################ -->
     <div class="content"> 
-      <!-- ################################################################################################ -->
         <div class="blogContent">
             <div class="loader"></div>
 
         </div>
-    <br><br><br>  
+    <br><br><br>
+    <p>
+      <a href="#" class="btn btn-info btn-lg" id="likeBtn" style="background-color: white; color:gray; border:none">
+        <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp<span id="likeCount"></span> 
+      </a>
+    </p> 
+    <br>  
     <div id="comments">
         <h2>Comments</h2>
         <div class="loaderComments"></div>
@@ -113,6 +64,10 @@
             </article>
           </li>
         </ul>
+
+
+
+
         <h2>Write A Comment</h2>
         <form action="#" method="post" id="submitComment">
 
@@ -132,12 +87,10 @@
     <div class="clear"></div>
   </main>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper row4">
   <footer id="footer" class="hoc clear"> 
-    <!-- ################################################################################################ -->
+ 
     <div class="one_third first">
       <h6 class="heading">Risus lacus ut lectus</h6>
       <ul class="nospace btmspace-30 linklist contact">
@@ -212,6 +165,11 @@
 <script src="../../js/layout/scripts/jquery.backtotop.js"></script>
 <script src="../../js/layout/scripts/jquery.mobilemenu.js"></script>
 <script src="../../js/layout/scripts/jquery.ajax-displayblog.js"></script>
+<script src="../../js/layout/scripts/jquery.ajax-likeblog.js"></script>
 
+
+<!-- for like button -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

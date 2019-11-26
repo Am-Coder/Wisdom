@@ -147,5 +147,18 @@
             }
             return false;
         }
+
+        public function togLike($id,$email,$tog){
+            if($this->conn){
+                $stmt = $this->conn->prepare("SELECT claps FROM blog WHERE blogid=?");
+                $stmt->execute([$id]);
+                $res = $stmt->fetch(PDO::FETCH_ASSOC);
+                $res = (int)$res+$tog;
+                $stmt = $this->conn->prepare("UPDATE blog SET claps=? WHERE blogid=?");
+                $stmt->execute([$res,$id]);
+                return $res;
+            }
+            return -1;
+        }
     }
 ?>

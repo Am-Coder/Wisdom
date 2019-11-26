@@ -37,7 +37,7 @@ $(document).ready(function(){
             console.log(blog);
 
             blog_container.innerHTML = blog.BLOGTEXT
-
+            $("#likeCount").html(blog.CLAPS)
 				}
 		
 			}else{
