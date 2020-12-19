@@ -42,15 +42,15 @@ class Authenticate{
             $mail->isSMTP();                                             
             $mail->Host       = 'smtp.gmail.com;';                     
             $mail->SMTPAuth   = true;                              
-            $mail->Username   = 'ragnar.viking.1998.kia@gmail.com';                  
-            $mail->Password   = 'ragnar.ragnar';                         
+            $mail->Username   = 'your gmail';                  
+            $mail->Password   = 'your password for mail';                         
             $mail->SMTPSecure = 'tls';       //or ssl                        
             $mail->Port       = 587;   //465 for ssl
             
             $authservice = new AuthService();
             $info = $authservice->addUser($fname,$lname,$email,$password);
             echo $info;
-            $mail->setFrom('ragnar.viking.1998.kia@gmail.com', 'RL');            
+            $mail->setFrom('ryour gmail', 'RL');            
             $mail->addAddress($email); 
             
             $mail->isHTML(true);                                   
@@ -88,13 +88,13 @@ class Authenticate{
                 $mail->isSMTP();                                             
                 $mail->Host       = 'smtp.gmail.com;';                     
                 $mail->SMTPAuth   = true;                              
-                $mail->Username   = 'ragnar.viking.1998.kia@gmail.com';                  
-                $mail->Password   = 'ragnar.ragnar';                         
+                $mail->Username   = 'your gmail';                  
+                $mail->Password   = 'your password for mail';                         
                 $mail->SMTPSecure = 'tls';       //or ssl                        
                 $mail->Port       = 587;   //465 for ssl
                 
     
-                $mail->setFrom('ragnar.viking.1998.kia@gmail.com', 'RL');            
+                $mail->setFrom('your gmail', 'RL');            
                 $mail->addAddress($email); 
                 
                 $mail->isHTML(true);                                   
